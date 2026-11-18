@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rhino and Navel · Miniature Painting Studio</title>
+<meta name="description" content="Award-winning miniature painting from Croatia: Blood Bowl teams, Imperial Knights, armies and display dioramas. Commissions open, shipping worldwide.">
+<meta property="og:title" content="Rhino & Navel · Miniature Painting Studio">
+<meta property="og:description" content="Award-winning miniature painting from Croatia. Commissions open, shipping worldwide.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2E5A4C">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232E5A4C'/%3E%3Ctext x='16' y='23' font-family='Impact,sans-serif' font-size='18' text-anchor='middle' fill='%23F2C14E'%3ER%26N%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;900&family=Work+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mat:#2E5A4C;        /* self-healing cutting mat */
+  --mat-deep:#234639;
+  --grid:rgba(214,236,224,.10);
+  --grid-major:rgba(214,236,224,.20);
+  --marking:#F2C14E;    /* mat markings yellow */
+  --bone:#EAE2CF;       /* bone-white basecoat */
+  --primer:#2B2D2F;     /* grey primer */
+  --red:#B8322A;        /* "sold" dot */
+  --ink:#F3F1EA;
+  --muted:#B9CFC4;
+  --display:"Big Shoulders Display", Impact, sans-serif;
+  --body:"Work Sans", system-ui, sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{
+  font-family:var(--body);color:var(--ink);line-height:1.55;font-size:17px;
+  background-color:var(--mat);
+  background-image:
+    linear-gradient(var(--grid-major) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid-major) 1px,transparent 1px),
+    linear-gradient(var(--grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:100px 100px,100px 100px,20px 20px,20px 20px;
+}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--marking);outline-offset:3px}
+img{display:block;max-width:100%}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+
+/* ruler along top edge */
+.ruler{height:28px;border-bottom:1px solid var(--marking);position:relative;overflow:hidden;
+  background:
+   repeating-linear-gradient(90deg,var(--marking) 0 1px,transparent 1px 10px) bottom/100% 7px no-repeat,
+   repeating-linear-gradient(90deg,var(--marking) 0 1px,transparent 1px 50px) bottom/100% 14px no-repeat;}
+.ruler span{position:absolute;bottom:14px;font:600 10px/1 var(--body);color:var(--marking);transform:translateX(3px)}
+
+/* nav */
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.brand{font:900 22px/1 var(--display);letter-spacing:.02em;text-decoration:none}
+.brand small{display:block;font:500 12px/1.3 var(--body);color:var(--muted);letter-spacing:0}
+nav ul{display:flex;gap:22px;list-style:none}
+nav a{text-decoration:none;font-weight:500;font-size:15px}
+nav a:hover{color:var(--marking)}
+@media (max-width:720px){
+  nav{flex-wrap:wrap;gap:14px}
+  nav ul{width:100%;gap:18px;overflow-x:auto;padding-bottom:4px;border-top:1px solid var(--grid-major);padding-top:12px}
+  nav a{white-space:nowrap}
+}
+
+/* hero entrance: one short, staggered rise; content is visible at rest */
+@keyframes rise{from{transform:translateY(14px)}to{transform:none}}
+.hero h1,.hero .lead,.hero .who,.hero .btns{animation:rise .6s cubic-bezier(.2,.7,.2,1) both}
+.hero .lead{animation-delay:.08s}.hero .who{animation-delay:.14s}.hero .btns{animation-delay:.2s}
+
+/* hero */
+.hero{padding:56px 0 90px;display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:end}
+.hero h1{font:900 clamp(64px,11vw,168px)/.84 var(--display);text-transform:uppercase;letter-spacing:-.01em}
+.hero h1 .amp{display:block;color:var(--marking);font-weight:500;font-size:.5em;line-height:1;margin:.08em 0}
+.hero p.lead{font-size:clamp(18px,2vw,21px);max-width:34ch;margin-top:26px;color:var(--ink)}
+.hero .who{color:var(--muted);margin-top:10px;font-size:15px}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.btn{display:inline-block;padding:14px 22px;font:700 18px/1 var(--display);letter-spacing:.04em;text-transform:uppercase;text-decoration:none;border:2px solid var(--marking);cursor:pointer;background:none;color:var(--ink)}
+.btn.primary{background:var(--marking);color:var(--primer)}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--primer)}
+
+/* scale callout: a mini measured against the mat */
+.scale{position:relative;justify-self:center;width:min(340px,100%)}
+.scale svg{width:100%;height:auto;display:block}
+.scale figcaption{font-size:13px;color:var(--muted);text-align:center;margin-top:8px}
+@media (max-width:860px){.hero{grid-template-columns:1fr}.scale{order:-1;width:150px;justify-self:start}.scale figcaption{display:none}.hero{padding-top:20px}}
+
+/* section headings */
+section{padding:80px 0;scroll-margin-top:10px}
+h2{font:900 clamp(44px,6vw,80px)/.9 var(--display);text-transform:uppercase}
+.sub{color:var(--muted);max-width:60ch;margin-top:14px}
+
+/* story band */
+.story{background:var(--bone);color:var(--primer)}
+.story .wrap{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.story h2{color:var(--primer)}
+.story p{margin-top:16px;max-width:52ch}
+.awards{list-style:none;margin-top:22px}
+.awards li{display:grid;grid-template-columns:70px 1fr;gap:14px;padding:14px 0;border-top:2px solid var(--primer)}
+.awards b{font:900 30px/1 var(--display);color:var(--mat)}
+.awards strong{font-weight:600}
+.story .src{font-size:13px;margin-top:18px;color:#5a5a55}
+.story .src a{color:var(--mat)}
+.story .frame{aspect-ratio:4/3;background:var(--primer);border:10px solid var(--primer);box-shadow:10px 10px 0 var(--mat)}
+@media (max-width:860px){.story .wrap{grid-template-columns:1fr}}
+
+/* ===== the sprue gallery ===== */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:30px 0 26px}
+.filters button{font:600 15px/1 var(--body);padding:10px 16px;border:1.5px solid var(--muted);background:transparent;color:var(--ink);border-radius:999px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--mat-deep);border-color:var(--ink)}
+.sprue{
+  --runner:#6f7a76;
+  position:relative;padding:26px;border:8px solid var(--runner);border-radius:6px;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:34px;
+  background:rgba(35,70,57,.55);
+}
+.sprue::before{ /* part tab in corner like a real frame code */
+  content:attr(data-code);position:absolute;top:-8px;left:28px;transform:translateY(-100%);
+  background:var(--runner);color:var(--ink);font:700 14px/1 var(--display);padding:6px 10px 4px;border-radius:4px 4px 0 0;letter-spacing:.06em}
+.part{position:relative;background:none;border:0;color:inherit;text-align:left;cursor:pointer;padding:0;font:inherit}
+.part::before,.part::after{ /* gates connecting the part to the runner */
+  content:"";position:absolute;background:var(--runner);}
+.part::before{width:6px;height:34px;left:50%;top:-34px;transform:translateX(-50%)}
+.part::after{height:6px;width:34px;top:40%;left:-34px}
+.part .ph{aspect-ratio:4/5;border:3px solid var(--runner);overflow:hidden;background:var(--primer);position:relative;transition:transform .2s}
+.part:hover .ph,.part:focus-visible .ph{transform:rotate(-1.2deg) scale(1.02)}
+.part .ph img{width:100%;height:100%;object-fit:cover}
+.part .cap{margin-top:10px}
+.part .cap b{display:block;font:700 22px/1.05 var(--display);text-transform:uppercase}
+.part .cap span{font-size:14px;color:var(--muted)}
+.part[hidden]{display:none}
+
+/* service tiers */
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:40px;border:2px solid var(--marking)}
+.tier{padding:28px 26px 32px;border-right:2px solid var(--marking)}
+.tier:last-child{border-right:0}
+.tier h3{font:900 34px/1 var(--display);text-transform:uppercase}
+.tier .lvl{display:flex;gap:4px;margin:14px 0 16px}
+.tier .lvl i{width:22px;height:8px;background:var(--marking);opacity:.25}
+.tier .lvl i.on{opacity:1}
+.tier p{color:var(--muted);font-size:16px}
+.tier ul{list-style:none;margin-top:16px;font-size:15px}
+.tier li{padding:7px 0;border-top:1px solid var(--grid-major)}
+.tier .price{font:700 26px/1 var(--display);margin-top:20px;color:var(--marking)}
+@media (max-width:860px){.tiers{grid-template-columns:1fr}.tier{border-right:0;border-bottom:2px solid var(--marking)}.tier:last-child{border-bottom:0}}
+
+/* process */
+.steps{list-style:none;counter-reset:s;display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-top:40px}
+.steps li{counter-increment:s;border-top:2px solid var(--ink);padding-top:16px}
+.steps li::before{content:counter(s);font:900 54px/1 var(--display);color:var(--marking);display:block;margin-bottom:8px}
+.steps b{font:700 22px/1.1 var(--display);text-transform:uppercase;display:block;margin-bottom:6px}
+.steps p{font-size:15px;color:var(--muted)}
+@media (max-width:860px){.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+
+/* display cabinet / for sale */
+.cabinet{margin-top:40px;background:#1c2b26;border:12px solid #4a3a2c;box-shadow:inset 0 0 0 2px #6b5642;padding:0 24px}
+.shelf{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;padding:30px 0 0;border-bottom:14px solid #4a3a2c;box-shadow:0 6px 0 #33281f}
+.shelf:last-child{margin-bottom:24px}
+@media (max-width:900px){.shelf{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.shelf{grid-template-columns:1fr}}
+.item{padding-bottom:24px;display:flex;flex-direction:column}
+.item .ph{display:block;width:100%;aspect-ratio:1;background:var(--primer);overflow:hidden;cursor:pointer;border:0;padding:0;transition:transform .2s}
+.item .ph:hover,.item .ph:focus-visible{transform:scale(1.02)}
+.item .ph img{width:100%;height:100%;object-fit:cover}
+.item h3{font:700 24px/1.05 var(--display);text-transform:uppercase;margin-top:14px}
+.item p{font-size:14px;color:var(--muted);margin-top:4px;flex:1}
+.item .row{display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:10px}
+.item .cost{font:700 22px/1.05 var(--display);color:var(--marking)}
+.tag{font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:6px}
+.tag::before{content:"";width:9px;height:9px;border-radius:50%;background:#5fc48a}
+.tag.reserved::before{background:var(--marking)}
+.tag.sold::before{background:var(--red)}
+.item.sold .ph{filter:grayscale(.7) brightness(.7)}
+.ask{margin-top:12px;font:600 14px/1 var(--body);padding:10px 14px;background:var(--ink);color:var(--mat-deep);border:0;cursor:pointer}
+.item.sold .ask{display:none}
+
+/* contact */
+.contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:50px}
+.links{display:grid;gap:14px;margin-top:30px}
+.links a{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border:2px solid var(--ink);text-decoration:none;font:700 24px/1 var(--display);text-transform:uppercase}
+.links a small{font:400 14px/1 var(--body);text-transform:none;color:var(--muted)}
+.links a:hover{background:var(--ink);color:var(--mat-deep)}
+.links a:hover small{color:var(--mat)}
+form{background:var(--bone);color:var(--primer);padding:28px}
+form label{display:block;font-weight:600;font-size:14px;margin:14px 0 6px}
+form label:first-child{margin-top:0}
+form input,form select,form textarea{width:100%;font:inherit;font-size:16px;padding:11px 12px;border:2px solid var(--primer);background:#fff;color:var(--primer)}
+form textarea{min-height:110px;resize:vertical}
+form .btn{margin-top:18px;border-color:var(--primer);color:var(--bone);background:var(--primer)}
+form .note{font-size:13px;margin-top:12px;min-height:1.3em}
+@media (max-width:860px){.contact .wrap{grid-template-columns:1fr}}
+
+footer{padding:30px 0 50px;color:var(--muted);font-size:14px;border-top:1px solid var(--grid-major)}
+
+/* lightbox */
+dialog{border:0;padding:0;background:transparent;max-width:min(980px,94vw);width:100%;color:var(--ink)}
+dialog::backdrop{background:rgba(15,25,21,.92)}
+.lb{position:relative;display:grid;grid-template-columns:1.4fr 1fr;background:var(--mat-deep);border:3px solid var(--marking)}
+.lb .ph{background:var(--primer);aspect-ratio:4/5;max-height:80vh}
+.lb .ph img{width:100%;height:100%;object-fit:contain}
+.lb .info{padding:28px;display:flex;flex-direction:column}
+.lb h3{font:900 40px/.95 var(--display);text-transform:uppercase}
+.lb .meta{color:var(--marking);margin-top:10px;font-weight:600;font-size:14px}
+.lb p{margin-top:14px;color:var(--muted)}
+.lb .nav{margin-top:auto;display:flex;gap:10px;padding-top:24px}
+.lb .nav button{flex:1}
+.close{position:absolute;top:10px;right:10px;z-index:2;background:var(--mat-deep);border:2px solid var(--marking);color:var(--ink);font:700 16px/1 var(--display);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;padding:9px 12px}
+.close:hover{background:var(--marking);color:var(--primer)}
+.lb .info{padding-top:60px}
+@media (max-width:720px){.lb{grid-template-columns:1fr}.lb .ph{aspect-ratio:1}}
+</style>
+</head>
+<body>
+
+<div class="ruler" aria-hidden="true" id="ruler"></div>
+
+<header class="wrap">
+  <nav aria-label="Main">
+    <a class="brand" href="#top">Rhino &amp; Navel<small>Miniature Painting Studio</small></a>
+    <ul>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#commissions">Commissions</a></li>
+      <li><a href="#shop">For sale</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div>
+      <h1>Rhino<span class="amp">and</span>Navel</h1>
+      <p class="lead">Award-winning miniature painting from Croatia: Blood Bowl teams, Imperial Knights, armies and full display dioramas.</p>
+      <p class="who">The studio of Adrijano Kesegi. Commission slots open, shipping worldwide.</p>
+      <div class="btns">
+        <a class="btn primary" href="#work">See the work</a>
+        <a class="btn" href="#contact">Ask for a quote</a>
+      </div>
+    </div>
+    <figure class="scale" aria-hidden="true">
+      <svg viewBox="0 0 300 330" xmlns="http://www.w3.org/2000/svg">
+        <!-- measuring bracket -->
+        <g stroke="#F2C14E" stroke-width="2" fill="none">
+          <path d="M262 32 H282 M272 32 V300 M262 300 H282"/>
+        </g>
+        <text x="288" y="172" fill="#F2C14E" font-family="Big Shoulders Display" font-weight="900" font-size="30" transform="rotate(90 288 172)" text-anchor="middle">28 MM</text>
+        <!-- generic armoured warrior silhouette on a round base -->
+        <ellipse cx="130" cy="300" rx="92" ry="20" fill="#1d1f20"/>
+        <rect x="38" y="282" width="184" height="18" fill="#2B2D2F"/>
+        <ellipse cx="130" cy="282" rx="92" ry="20" fill="#5b4a36"/>
+        <ellipse cx="130" cy="282" rx="80" ry="15" fill="#6f5b42"/>
+        <path fill="#EAE2CF" d="M112 278 L118 214 L102 212 L96 168 Q92 140 104 120 L92 92 Q90 74 106 70 L118 76 Q120 56 130 50 Q142 56 144 76 L156 70 Q172 74 168 92 L156 120 Q168 140 164 168 L158 212 L142 214 L148 278 L134 278 L130 222 L126 278 Z"/>
+        <path fill="#B8322A" d="M104 120 Q130 132 156 120 L160 150 Q130 162 100 150 Z"/>
+        <path fill="#2B2D2F" d="M124 64 h12 v10 h-12z"/>
+        <path stroke="#9aa39f" stroke-width="6" stroke-linecap="round" d="M170 96 L214 30"/>
+        <path fill="#F2C14E" d="M207 22 l18 -6 -6 18z"/>
+      </svg>
+      <figcaption>Heroic scale, painted at desk distance</figcaption>
+    </figure>
+  </div>
+
+  <section class="story" aria-labelledby="story-h">
+    <div class="wrap">
+      <div class="frame" id="storyFrame"></div>
+      <div>
+        <h2 id="story-h">Three years on parade</h2>
+        <ol class="awards">
+          <li><b>2024</b><span><strong>Armies on Parade: Judges' Choice</strong> for the Gnome Dome, a Blood Bowl pitch built under glass.</span></li>
+          <li><b>2023</b><span><strong>Armies on Parade: Most Sporting</strong> for a Dungeon Bowl display, also featured by Warhammer in its Judges' Choice round-up.</span></li>
+          <li><b>2022</b><span><strong>Dice &amp; Mystics Fringe, Bochum:</strong> donated a tournament-quality Khagra's Ravagers diorama as a prize. It went home with the winner, to Brazil.</span></li>
+        </ol>
+        <p class="src">Sources: <a href="https://www.instagram.com/rhino_and_navel/">@rhino_and_navel</a> and <a href="https://www.diceandmystics.de/en/2023/01/22/the-dice-mystics-fringe-2022-a-celebration-of-gaming/">Dice &amp; Mystics</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" aria-labelledby="work-h">
+    <div class="wrap">
+      <h2 id="work-h">Off the sprue</h2>
+      <p class="sub">Recent work. Choose a piece to see it larger.</p>
+      <div class="filters" role="group" aria-label="Filter gallery" id="filters"></div>
+      <div class="sprue" data-code="RN-01" id="gallery"></div>
+    </div>
+  </section>
+
+  <section id="commissions" aria-labelledby="com-h">
+    <div class="wrap">
+      <h2 id="com-h">Commissions</h2>
+      <p class="sub">Every job is quoted per model. Pick the level of finish that suits where the model will live: on the table, on the shelf, or in a competition cabinet.</p>
+      <div class="tiers">
+        <article class="tier">
+          <h3>Tabletop</h3>
+          <div class="lvl" aria-label="Detail level 1 of 3"><i class="on"></i><i></i><i></i></div>
+          <p>Clean, fast and consistent across a whole army. Looks sharp at arm's length.</p>
+          <ul><li>Basecoat, wash and highlight</li><li>Textured, finished bases</li><li>Varnished for handling</li></ul>
+          <div class="price">Quote per unit</div>
+        </article>
+        <article class="tier">
+          <h3>Display</h3>
+          <div class="lvl" aria-label="Detail level 2 of 3"><i class="on"></i><i class="on"></i><i></i></div>
+          <p>For characters and centrepieces that deserve a closer look.</p>
+          <ul><li>Layered blending and edge highlights</li><li>Freehand and weathering details</li><li>Scenic bases</li></ul>
+          <div class="price">Quote per model</div>
+        </article>
+        <article class="tier">
+          <h3>Competition</h3>
+          <div class="lvl" aria-label="Detail level 3 of 3"><i class="on"></i><i class="on"></i><i class="on"></i></div>
+          <p>Tournament-quality single pieces and full dioramas, built around a story.</p>
+          <ul><li>Smooth blends, light and shadow placement</li><li>Custom diorama scenery</li><li>Display plinth on request</li></ul>
+          <div class="price">Quote per project</div>
+        </article>
+      </div>
+
+      <ol class="steps">
+        <li><b>Tell me the plan</b><p>Send the models, the army or idea, and a colour scheme if you have one.</p></li>
+        <li><b>Get a quote</b><p>A price and a timeframe, agreed before anything starts.</p></li>
+        <li><b>Watch it come together</b><p>Work-in-progress photos as each stage is finished.</p></li>
+        <li><b>Delivery</b><p>Carefully packed and shipped, or collected in person.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="shop" aria-labelledby="shop-h">
+    <div class="wrap">
+      <h2 id="shop-h">In the cabinet</h2>
+      <p class="sub">Recently sold pieces. Ask for a commission in the same style, or browse more on the <a href="https://www.ebay.com/usr/kaesso">eBay shop</a>.</p>
+      <div class="cabinet" id="cabinet"></div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact" aria-labelledby="contact-h">
+    <div class="wrap">
+      <div>
+        <h2 id="contact-h">Start a project</h2>
+        <p class="sub">The quickest way to reach the studio is a message on Facebook or Instagram.</p>
+        <div class="links">
+          <a href="https://www.facebook.com/rhinoandnavel">Facebook <small>facebook.com/rhinoandnavel</small></a>
+          <a href="https://www.instagram.com/rhino_and_navel/">Instagram <small>@rhino_and_navel</small></a>
+          <a href="https://www.ebay.com/usr/kaesso">eBay shop <small>kaesso</small></a>
+        </div>
+      </div>
+      <form id="quote" novalidate>
+        <label for="f-name">Your name</label>
+        <input id="f-name" required autocomplete="name">
+        <label for="f-kind">What needs painting?</label>
+        <select id="f-kind">
+          <option>A Blood Bowl team</option><option>A full army</option><option>A unit or squad</option><option>A character or centrepiece</option><option>A diorama</option><option>A piece from the cabinet</option>
+        </select>
+        <label for="f-level">Level of finish</label>
+        <select id="f-level"><option>Tabletop</option><option>Display</option><option>Competition</option><option>Not sure yet</option></select>
+        <label for="f-msg">Details</label>
+        <textarea id="f-msg" placeholder="Models, number of figures, colour scheme, deadline…"></textarea>
+        <button class="btn" type="submit">Copy my message</button>
+        <p class="note" id="note" role="status">Your message is copied, ready to paste into Facebook or Instagram.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Rhino &amp; Navel Miniature Painting Studio. All painting by Adrijano Kesegi.</div>
+</footer>
+
+<dialog id="lightbox" aria-labelledby="lb-title">
+  <div class="lb">
+    <button class="close" id="lbClose" type="button">Close ✕</button>
+    <div class="ph" id="lbImg"></div>
+    <div class="info">
+      <h3 id="lb-title"></h3>
+      <div class="meta" id="lbMeta"></div>
+      <p id="lbText"></p>
+      <div class="nav">
+        <button class="btn" id="lbPrev">Previous</button>
+        <button class="btn" id="lbNext">Next</button>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<script>
+/* ======== CONTENT — replace with real photos and details ========
+   gif (optional): an animated version shown only in the lightbox.
+   img: a path to a photo in the photos/ folder, e.g. "photos/gnome-dome.jpg"
+   (portrait 4:5 crops best). Leave empty to show the placeholder figure. */
+const ALL_WORK = [
+  {title:"Gnome Dome", cat:"Blood Bowl", meta:"Armies on Parade 2024 · Judges' Choice", text:"A Blood Bowl pitch built under a glass dome, made for Armies on Parade Day 2024, where it won Judges' Choice.", hue:95, img:"photos/gnome-dome.jpg"},
+  {title:"Dungeon Bowl display", cat:"Blood Bowl", meta:"Armies on Parade 2023 · Most Sporting", text:"A commissioned Dungeon Bowl display that won the Most Sporting category at Armies on Parade 2023 and was featured by Warhammer.", hue:15, img:"photos/dungeon-bowl.jpg"},
+  {title:"Imperial Knight, House Hawkshroud", cat:"Warhammer 40,000", meta:"Display & tabletop centrepiece", text:"Hand-painted Adepta Sororitas portrait on one shoulder and a Himalayan mountain mural on the other, with heavy edge wear, heat-stained weapons and glowing fire on the scenic base.", hue:48, img:"photos/knight-hawkshroud.jpg", gif:"photos/knight-hawkshroud.gif"},
+  {title:"Imperial Knight and retinue", cat:"Warhammer 40,000", meta:"Display painting", text:"A Knight together with its retinue, painted as one force.", hue:205, img:"photos/knight-retinue.jpg"},
+  {title:"Prince Vhordrai", cat:"Age of Sigmar", meta:"Soulblight Gravelords", text:"The vampire prince on his dragon, painted for display.", hue:350, img:"photos/prince-vhordrai.jpg"},
+  {title:"Khagra's Ravagers", cat:"Dioramas", meta:"Dice & Mystics Fringe 2022", text:"Tournament-quality diorama donated as a prize at the Dice & Mystics Fringe 2022 in Bochum.", hue:0, img:"photos/khagras-ravagers.jpg"},
+  {title:"Old Alliance team", cat:"Blood Bowl", meta:"Greebo Games commission", text:"Part of a Greebo Games Old Alliance team painted on commission.", hue:220, img:"photos/old-alliance.jpg"},
+  {title:"Blood Brood cats", cat:"Blood Bowl", meta:"Greebo Games · Cutiemals", text:"\"Bad kitty!\" The cats team from Greebo's Cutiemals series.", hue:30, img:"photos/blood-brood-cats.jpg"},
+  {title:"Holitails Papadins dogs", cat:"Blood Bowl", meta:"Greebo Games · Cutiemals", text:"The dogs team from the Cutiemals series. Who's a good boy?", hue:180, img:"photos/holitails-dogs.jpg"},
+  {title:"Chimps team", cat:"Blood Bowl", meta:"Greebo Games · Cutiemals", text:"The chimps team from Greebo's Cutiemals series.", hue:120, img:"photos/chimps.jpg"},
+  {title:"Lizardmen team", cat:"Blood Bowl", meta:"Greebo Games · Cutiemals", text:"A commissioned lizardmen team from the Cutiemals series.", hue:150, img:"photos/lizardmen.jpg"},
+];
+/* Pieces without a photo stay hidden until their img is filled in. */
+const WORK = ALL_WORK.filter(w => w.img);
+/* Only pieces listed here appear in the cabinet (commissions stay gallery-only).
+   Key = gallery title. status: "available", "reserved" or "sold". */
+const SALE = {
+  "Imperial Knight, House Hawkshroud": {status:"sold", price:"€800 or best offer", text:"Freehand portrait and mountain mural, scenic base with fire effects. Sold. Ask about a commission in the same style."},
+  "Khagra's Ravagers": {status:"sold", text:"Gone to a new home: donated as a prize at the Dice & Mystics Fringe 2022. Ask about a commission in the same style."},
+  "Gnome Dome": {status:"sold", text:"The Judges' Choice winner from Armies on Parade 2024, now sold. Ask about a commission in the same style."},
+};
+const SHOP = WORK.map((w,i) => ({w,i,s:SALE[w.title]})).filter(x=>x.s).map(({w,i,s}) => ({
+  idx:i, title:w.title, hue:w.hue, img:w.img,
+  text:s.text || w.text,
+  price:s.price || "Price on request",
+  status:s.status || "available",
+}));
+
+/* placeholder art: a little painted figure on a base, tinted per piece */
+function placeholder(h){
+  const c=`hsl(${h} 45% 52%)`, d=`hsl(${h} 40% 30%)`;
+  return `<svg viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Photo coming soon">
+   <rect width="200" height="250" fill="#2B2D2F"/>
+   <circle cx="100" cy="110" r="90" fill="${d}" opacity=".35"/>
+   <ellipse cx="100" cy="212" rx="58" ry="12" fill="#1a1b1c"/>
+   <rect x="42" y="200" width="116" height="12" fill="#3a3c3e"/>
+   <ellipse cx="100" cy="200" rx="58" ry="12" fill="#5b4a36"/>
+   <path fill="${c}" d="M88 198 L92 156 L82 154 L78 126 Q76 108 84 96 L76 78 Q75 66 85 64 L93 68 Q94 54 100 50 Q108 54 108 68 L116 64 Q126 66 124 78 L116 96 Q124 108 122 126 L118 154 L108 156 L112 198 L103 198 L100 160 L97 198 Z"/>
+   <path fill="#EAE2CF" opacity=".85" d="M84 96 Q100 104 116 96 L118 116 Q100 124 82 116 Z"/>
+  </svg>`;
+}
+const pic = (o)=> o.img ? `<img src="${o.img}" alt="${o.title}" loading="lazy">` : placeholder(o.hue);
+
+/* ruler numbers */
+(()=>{const r=document.getElementById('ruler');for(let i=0;i<60;i++){const s=document.createElement('span');s.textContent=i;s.style.left=(i*50)+'px';r.appendChild(s)}})();
+
+document.getElementById('storyFrame').innerHTML = pic(WORK[0]);
+
+/* gallery + filters */
+const gallery=document.getElementById('gallery'), filters=document.getElementById('filters');
+WORK.forEach((w,i)=>{
+  const b=document.createElement('button');b.className='part';b.dataset.cat=w.cat;
+  b.innerHTML=`<div class="ph">${pic(w)}</div><div class="cap"><b>${w.title}</b><span>${w.meta}</span></div>`;
+  b.addEventListener('click',()=>openLB(i));gallery.appendChild(b);
+});
+['All',...new Set(WORK.map(w=>w.cat))].forEach((c,i)=>{
+  const f=document.createElement('button');f.textContent=c;f.setAttribute('aria-pressed',i===0);
+  f.onclick=()=>{filters.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===f));
+    gallery.querySelectorAll('.part').forEach(p=>p.hidden=!(c==='All'||p.dataset.cat===c));};
+  filters.appendChild(f);
+});
+
+/* lightbox */
+const lb=document.getElementById('lightbox');let cur=0;
+function visible(){return [...gallery.querySelectorAll('.part')].map((p,i)=>p.hidden?null:i).filter(i=>i!==null)}
+function openLB(i){
+  /* if the piece is hidden by a filter, reset to All so Previous/Next work */
+  if(gallery.querySelectorAll('.part')[i].hidden)filters.querySelector('button').click();
+  cur=i;fill();if(!lb.open)lb.showModal()}
+function fill(){const w=WORK[cur];
+  document.getElementById('lbImg').innerHTML=pic(w.gif?{...w,img:w.gif}:w); /* turntable GIF plays in the lightbox only */
+  document.getElementById('lb-title').textContent=w.title;
+  document.getElementById('lbMeta').textContent=w.cat+' · '+w.meta;
+  document.getElementById('lbText').textContent=w.text;}
+function step(d){const v=visible();const k=v.indexOf(cur);cur=v[(k+d+v.length)%v.length];fill()}
+document.getElementById('lbPrev').onclick=()=>step(-1);
+document.getElementById('lbNext').onclick=()=>step(1);
+document.getElementById('lbClose').onclick=()=>lb.close();
+lb.addEventListener('click',e=>{if(e.target===lb)lb.close()});
+lb.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')step(-1);if(e.key==='ArrowRight')step(1)});
+
+/* cabinet: three pieces per shelf */
+const cab=document.getElementById('cabinet');
+let shelf;
+const label={available:'Available',reserved:'Reserved',sold:'Sold'};
+SHOP.forEach((s,i)=>{
+  if(i%3===0){shelf=document.createElement('div');shelf.className='shelf';cab.appendChild(shelf);}
+  const d=document.createElement('article');d.className='item '+s.status;
+  d.innerHTML=`<button class="ph" type="button" aria-label="View ${s.title} larger">${pic(s)}</button><h3>${s.title}</h3><p>${s.text}</p>
+   <div class="row"><span class="cost">${s.status==='sold'?'':s.price}</span><span class="tag ${s.status}">${label[s.status]}</span></div>
+   <button class="ask" type="button">Ask about this piece</button>`;
+  d.querySelector('.ph').onclick=()=>openLB(s.idx);
+  d.querySelector('.ask').onclick=()=>{
+    document.getElementById('f-kind').value='A piece from the cabinet';
+    document.getElementById('f-msg').value=`I'm interested in "${s.title}". Is it still available?`;
+    document.getElementById('contact').scrollIntoView();document.getElementById('f-name').focus();};
+  shelf.appendChild(d);
+});
+
+/* quote form -> composes a message and copies it */
+const note=document.getElementById('note');note.textContent='';
+document.getElementById('quote').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const v=id=>document.getElementById(id).value.trim();
+  if(!v('f-name')){note.textContent='Add your name so the studio knows who is asking.';document.getElementById('f-name').focus();return}
+  const msg=`Hi Adrijano, I'm ${v('f-name')}.\nI'd like a quote for: ${v('f-kind')} (${v('f-level')} finish).\n${v('f-msg')}`;
+  try{await navigator.clipboard.writeText(msg);note.textContent='Message copied. Paste it into Facebook or Instagram using the links on this page.';}
+  catch{note.textContent='Copy was blocked here. Select and copy this text: '+msg.replace(/\n/g,' ');}
+});
+</script>
+</body>
+</html>

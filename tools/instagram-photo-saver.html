@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Instagram Photo Saver</title>
+<style>
+:root{--bg:#F4F6F5;--card:#fff;--ink:#1d2622;--muted:#5d6b65;--accent:#2E5A4C;--hi:#F2C14E;--line:#d7dfdb}
+@media (prefers-color-scheme:dark){:root{--bg:#141a18;--card:#1d2522;--ink:#eef2f0;--muted:#9fb0a8;--accent:#7fc4a8;--line:#2f3a36;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,"Segoe UI",sans-serif;padding:40px max(16px,4vw)}
+main{max-width:720px;margin:auto;display:grid;gap:22px}
+h1{font-size:30px;line-height:1.1;margin:0}
+.lead{color:var(--muted);margin:6px 0 0}
+section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px}
+h2{font-size:17px;margin:0 0 10px}
+ol{margin:0;padding-left:22px;display:grid;gap:8px}
+.bm{display:inline-block;margin:14px 0 4px;padding:12px 18px;background:var(--hi);color:#2B2D2F;font-weight:700;text-decoration:none;border-radius:8px;border:2px dashed #2B2D2F;cursor:grab}
+.small{font-size:14px;color:var(--muted)}
+textarea{width:100%;height:110px;font:12px/1.4 ui-monospace,Consolas,monospace;padding:10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
+button{font:600 14px system-ui,sans-serif;padding:9px 14px;border:0;border-radius:6px;background:var(--accent);color:#fff;cursor:pointer;margin-top:8px}
+@media (prefers-color-scheme:dark){button{color:#141a18}}
+kbd{font:13px ui-monospace,Consolas,monospace;background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Instagram Photo Saver</h1>
+    <p class="lead">A one-click Chrome bookmark that saves the full-size photos from the Instagram post you have open.</p>
+  </header>
+
+  <section>
+    <h2>1. Install it (once)</h2>
+    <ol>
+      <li>Show Chrome's bookmarks bar with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd>.</li>
+      <li>Drag this yellow button onto the bookmarks bar:<br>
+        <a class="bm" id="bm" href="#">📷 Save IG photos</a></li>
+    </ol>
+    <p class="small">Dragging doesn't work? Copy the code below, right-click the bookmarks bar, choose <b>Add page…</b>, name it "Save IG photos" and paste the code into the URL box.</p>
+    <textarea id="code" readonly></textarea>
+    <button id="copy" type="button">Copy code</button> <span id="copied" class="small" role="status"></span>
+  </section>
+
+  <section>
+    <h2>2. Use it</h2>
+    <ol>
+      <li>Open a post on instagram.com (its own page, or the pop-up you get by clicking a photo in a profile grid).</li>
+      <li>Click <b>Save IG photos</b> on the bookmarks bar.</li>
+      <li>The photos land in your Downloads folder, named like <code>rhino_and_navel-DB5myQItFA9-1.jpg</code>.</li>
+    </ol>
+    <p class="small">Posts with several photos: Instagram only loads the next one or two slides. Click the arrow through all the slides first, then click the bookmark. Videos can't be saved this way; take a screenshot with <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> instead. The first time, Chrome may ask to allow multiple downloads from instagram.com: click Allow.</p>
+  </section>
+</main>
+
+<script id="src" type="text/plain">
+(async()=>{
+const seg=location.pathname.split('/').filter(Boolean);
+const k=seg.findIndex(s=>s==='p'||s==='reel');
+if(!/instagram\.com$/.test(location.hostname)||k<0){alert('Open an Instagram post first, then click this bookmark.');return}
+const code=seg[k+1],user=k>0?seg[0]:'instagram';
+const root=document.querySelector('div[role="dialog"] article')||document.querySelector('div[role="dialog"]')||document.querySelector('main');
+const imgs=[...root.querySelectorAll('img')].filter(i=>i.naturalWidth>=300&&!i.closest('a'));
+const best=i=>{const s=(i.srcset||'').split(',').map(x=>x.trim().split(/\s+/)).filter(x=>x[0]).map(([u,w])=>({u,w:parseInt(w)||0})).sort((a,b)=>b.w-a.w)[0];return s&&s.w>i.naturalWidth?s.u:(i.currentSrc||i.src)};
+const urls=[...new Set(imgs.map(best))];
+if(!urls.length){alert(root.querySelector('video')?'This post is a video. Take a screenshot instead (Win + Shift + S).':'No photos found. Wait for the post to finish loading and try again.');return}
+let n=0;
+for(const u of urls){try{const b=await (await fetch(u)).blob();const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=user+'-'+code+'-'+(++n)+'.jpg';document.body.appendChild(a);a.click();a.remove();await new Promise(r=>setTimeout(r,400))}catch(e){}}
+alert('Saved '+n+' photo'+(n===1?'':'s')+' to Downloads.');
+})();
+</script>
+<script>
+const src=document.getElementById('src').textContent.trim().replace(/\n/g,'');
+const url='javascript:'+encodeURIComponent(src);
+document.getElementById('bm').href=url;
+document.getElementById('bm').addEventListener('click',e=>{e.preventDefault();alert('Drag this button to your bookmarks bar, then use it on an Instagram post.')});
+document.getElementById('code').value=url;
+document.getElementById('copy').onclick=async()=>{const t=document.getElementById('code');try{await navigator.clipboard.writeText(t.value);document.getElementById('copied').textContent='Copied.'}catch{t.select();document.getElementById('copied').textContent='Press Ctrl + C to copy.'}};
+</script>
+</body>
+</html>

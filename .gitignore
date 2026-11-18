@@ -1,0 +1,6 @@
+# local preview config
+.claude/
+# raw source video (the site uses photos/knight-hawkshroud.jpg and .gif)
+source/
+# alternate shots not used on the page
+photos/extra/
